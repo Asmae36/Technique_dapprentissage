@@ -59,7 +59,7 @@ if __name__ == '__main__':
         c = Adaboost(Train, Test, Labels, Ids_Test, Classes)
         models.append(c)    
     elif method == 'all':
-        Clfs = [SVM,KNN,MLP,RandomForest,NaiveBayesGaussienne,Adaboost]
+        Clfs = [MLP,RandomForest,NaiveBayesGaussienne,Adaboost,SVM,KNN]
         for c in Clfs:
             classifier = c(Train, Test, Labels, Ids_Test, Classes)
             models.append(classifier)
