@@ -31,3 +31,46 @@ def Parser():
     parser.add_argument('--method', type=str, default='all',choices=['SVM','KNN','MLP','RandomForest','NaiveBayesGaussienne','Adaboost','all'])
     parser.add_argument('--hidden_layer', type=tuple, default=(20,))
     return parser.parse_args()
+
+
+if __name__ == '__main__':
+    arguments = Parser()
+    method = arguments.method
+
+    Train, Test, Labels, Ids_Test, Classes = ReadData()
+    models = []
+
+    if method == 'SVM':
+        c = SVM(Train, Test, Labels, Ids_Test, Classes)
+        models.append(c)
+    elif method == 'KNN':
+        c = KNN(Train, Test, Labels, Ids_Test, Classes)
+        models.append(c)
+    elif method == 'MLP':
+        c = MLP(Train, Test, Labels, Ids_Test, Classes)
+        models.append(c)    
+    elif method == 'RandomForest':
+        c = RandomForest(Train, Test, Labels, Ids_Test, Classes)
+        models.append(c)
+    elif method == 'NaiveBayesGaussienne':
+        c = NaiveBayesGaussienne(Train, Test, Labels, Ids_Test, Classes)
+        models.append(c)
+    elif method == 'Adaboost':
+        c = Adaboost(Train, Test, Labels, Ids_Test, Classes)
+        models.append(c)    
+    elif method == 'all':
+        Clfs = [SVM,KNN,MLP,RandomForest,NaiveBayesGaussienne,Adaboost]
+        for c in Clfs:
+            classifier = c(Train, Test, Labels, Ids_Test, Classes)
+            models.append(classifier)
+    else:
+        raise Exception('method not valid')
+
+    for c_model in models:
+        c_model.hyperparameters_research()
+        c_model.Train()
+        c_model.get_Accuracies()
+         
+         
+         
+ #code vérifié
