@@ -54,3 +54,31 @@ class Classifier:
         print(f'Validation accuricies: {self.Validation_Accuracy():.2%}')
         
         #This function displays both validation and training accuricies
+        
+    def hyperparameters_research(self):
+   
+        grid = GridSearchCV(self._classifier, self._param_grid, scoring='accuracy', n_jobs=-1, verbose=1)
+        grid.fit(self._X_Train, self._Y_Train)
+
+        self._best_model = grid.best_estimator_
+        self._best_score = grid.best_score_
+        self._best_pair = grid.best_params_
+        print(f'The best parameters identified for {self.name} are {self._best_pair} for an accuracy '
+              f'of {self._best_score:.2%}')
+        
+        """
+         This function can perform a hyper-parameter search. The best trained model found is saved in
+         self._best_model and the best hyper-parameters found in self._best_pair.
+         """
+    def _Data_splitting(self):
+       
+        Split_stratified = StratifiedShuffleSplit(n_splits=10, test_size=0.2, random_state=30)
+
+        for Train_indice, Valid_indice in Split_stratified.split(self._Train, self._Labels):
+            X_Train,X_Valid = self._Train.values[Train_indice],self._Train.values[Valid_indice]
+            Y_Train,Y_Valid = self._Labels[Train_indice],self._Labels[Valid_indice]
+
+        return X_Train,Y_Train,X_Valid,Y_Valid
+     #This function divides the annotated dataset into training and validation subset and returns the 4 subsets 
+     
+#code vérifié
