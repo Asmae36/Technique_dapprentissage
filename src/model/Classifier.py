@@ -9,7 +9,6 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import accuracy_score
 
 
-
 class Classifier:
     
     def _init_(self,Train, Test, Labels, Ids_Test, Classes):
