@@ -4,6 +4,7 @@ from model.NaiveBayesGaussienne import NaiveBayesGaussienne
 from model.RandomForest import RandomForest
 from model.Adaboost import Adaboost
 from model.SVM import SVM
+from model.SGD import SGD
 from sklearn.preprocessing import LabelEncoder
 
 import argparse
@@ -28,7 +29,7 @@ def ReadData():
 
 def Parser():
     parser = argparse.ArgumentParser(description='leaf classification using 6 different algorithms.')
-    parser.add_argument('--method', type=str, default='all',choices=['SVM','KNN','MLP','RandomForest','NaiveBayesGaussienne','Adaboost','all'])
+    parser.add_argument('--method', type=str, default='all',choices=['SVM','KNN','MLP','SGD','RandomForest','NaiveBayesGaussienne','Adaboost','all'])
     parser.add_argument('--hidden_layer', type=tuple, default=(20,))
     return parser.parse_args()
 
@@ -52,6 +53,9 @@ if __name__ == '__main__':
     elif method == 'RandomForest':
         c = RandomForest(Train, Test, Labels, Ids_Test, Classes)
         models.append(c)
+    elif method == 'SGD':
+        c = SGD(Train, Test, Labels, Ids_Test, Classes)
+        models.append(c)    
     elif method == 'NaiveBayesGaussienne':
         c = NaiveBayesGaussienne(Train, Test, Labels, Ids_Test, Classes)
         models.append(c)
@@ -59,7 +63,7 @@ if __name__ == '__main__':
         c = Adaboost(Train, Test, Labels, Ids_Test, Classes)
         models.append(c)    
     elif method == 'all':
-        Clfs = [MLP,RandomForest,NaiveBayesGaussienne,Adaboost,SVM,KNN]
+        Clfs = [MLP,RandomForest,NaiveBayesGaussienne,Adaboost,SGD,SVM,KNN]
         for c in Clfs:
             classifier = c(Train, Test, Labels, Ids_Test, Classes)
             models.append(classifier)
