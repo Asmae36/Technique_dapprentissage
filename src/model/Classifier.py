@@ -9,7 +9,6 @@ from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.metrics import accuracy_score
 
 
-
 class Classifier:
     
     def _init_(self,Train, Test, Labels, Ids_Test, Classes):
@@ -38,3 +37,20 @@ class Classifier:
         self._best_model.fit(self._X_Train, self._Y_Train)
        
         #This function train the model with the provided dataset
+    def Training_Accuracy(self):
+         
+        return accuracy_score(self._Y_Train, self._best_model.predict(self._X_Train))
+        #This function allow us to calculates training accuracy and returns the training accuracy
+
+    def Validation_Accuracy(self):
+        
+        return accuracy_score(self._Y_Valid, self._best_model.predict(self._X_Valid))
+
+        #This function allow us to calculates the validation accuracy and return validation accuracy
+        
+
+    def get_Accuracies(self):
+        print(f'Training accuricies: {self.Training_Accuracy():.2%}')
+        print(f'Validation accuricies: {self.Validation_Accuracy():.2%}')
+        
+        #This function displays both validation and training accuricies
