@@ -25,3 +25,9 @@ def ReadData():
     Test = test.drop(['id'], axis=1)
 
     return Train, Test, Labels, Ids_Test, Classes
+
+def Parser():
+    parser = argparse.ArgumentParser(description='leaf classification using 6 different algorithms.')
+    parser.add_argument('--method', type=str, default='all',choices=['SVM','KNN','MLP','RandomForest','NaiveBayesGaussienne','Adaboost','all'])
+    parser.add_argument('--hidden_layer', type=tuple, default=(20,))
+    return parser.parse_args()
