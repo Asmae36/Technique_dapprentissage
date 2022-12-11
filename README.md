@@ -22,3 +22,5 @@ Nous avons choisi d'implémenter les algorithmes suivants:
 5.Bayes naive Classifier
 
 6.Adaboost
+
+7.SGD
